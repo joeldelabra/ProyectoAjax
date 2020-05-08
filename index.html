@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Practica Ajax</title>
+</head>
+<body>
+    <select id="slcPaises">
+    
+    </select>
+    <button id="btnCargarPaises">Cargar paises</button>
+    <script
+    src="https://code.jquery.com/jquery-3.5.1.js"
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous">
+    </script>
+
+    <script>
+
+        function doClickCargarPaises(e)
+        {
+           $("#slcPaises").empty();
+           //GET
+           $.ajax( "paises.json" )//Direccion URL
+            .done(function(data) { //si la respuesta fue exitosa
+                //llenar select
+                for(var i=0; i < data.length; i++){
+                    $("#slcPaises").append(
+                        "<option>" +
+                        data[i].name +
+                        "</option>");
+                }
+            })
+            .fail(function() { //si la respuesta fue error
+                alert( "error" );
+            })
+            .always(function() { //Siempre despues de donde o fail
+
+            });
+        }
+
+        $(function () {
+            
+            
+            $("#btnCargarPaises").click(doClickCargarPaises) ;
+        });
+    </script>
+</body>
+</html>
